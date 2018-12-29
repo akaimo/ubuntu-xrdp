@@ -9,6 +9,8 @@ RUN set -x \
 export XDG_CURRENT_DESKTOP=ubuntu:GNOME\n\
 export XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop\n\
 export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg'\n\
->> ~/.xsessionrc
+>> ~/.xsessionrc \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 CMD service xrdp start && tail -f /var/log/xrdp.log
