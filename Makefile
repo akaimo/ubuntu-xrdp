@@ -7,3 +7,6 @@ run:
 stop:
 	docker stop ubuntu-xrdp
 	docker rm ubuntu-xrdp
+
+log:
+	docker logs -f ubuntu-xrdp
