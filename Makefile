@@ -3,3 +3,7 @@ build:
 
 run:
 	docker run --name ubuntu-xrdp -d -p 3389:3389 ubuntu-xrdp:latest
+
+stop:
+	docker stop ubuntu-xrdp
+	docker rm ubuntu-xrdp
