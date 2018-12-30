@@ -10,3 +10,6 @@ stop:
 
 log:
 	docker logs -f ubuntu-xrdp
+
+exec:
+	docker exec -it ubuntu-xrdp bash
