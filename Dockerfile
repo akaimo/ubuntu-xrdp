@@ -1,6 +1,5 @@
 FROM ubuntu:18.04
 
-# https://qiita.com/yagince/items/deba267f789604643bab
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
