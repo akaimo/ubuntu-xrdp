@@ -13,3 +13,7 @@ log:
 
 exec:
 	docker exec -it ubuntu-xrdp bash
+
+push1804:
+	docker tag ubuntu-xrdp:latest akaimo/ubuntu-xrdp:18.04
+	docker push akaimo/ubuntu-xrdp:18.04
