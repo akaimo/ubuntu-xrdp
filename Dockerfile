@@ -9,7 +9,6 @@ RUN set -x \
  && apt-get install -y \
        xubuntu-desktop \
        xrdp \
-       tigervnc-standalone-server \
        vim \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
