@@ -22,7 +22,7 @@ RUN set -x \
  && echo "xfce4-session" > /home/ubuntu/.xsession \
  && echo 'export XDG_SESSION_DESKTOP=xubuntu\n\
 export XDG_DATA_DIRS=/usr/share/xfce4:/usr/share/xubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/usr/share\n\
-export XDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'\n\
+export XDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'\
 >> /home/ubuntu/.xsessionrc \
  && chown ubuntu:ubuntu /home/ubuntu/.xsession \
  && chown ubuntu:ubuntu /home/ubuntu/.xsessionrc
