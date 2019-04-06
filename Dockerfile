@@ -9,7 +9,8 @@ RUN set -x \
        ubuntu-mate-desktop \
        xrdp \
        vim \
- && apt-get clean
+       supervisor \
+ && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
@@ -30,4 +31,11 @@ export XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg'\
  && chown ubuntu:ubuntu /home/ubuntu/.xsession \
  && chown ubuntu:ubuntu /home/ubuntu/.xsessionrc
 
-CMD service xrdp start && tail -f /var/log/xrdp.log
+RUN set -x \
+ && : "setup supervisord" \
+ && echo "[supervisord]\nnodaemon=true\n" > /etc/supervisor/conf.d/supervisord.conf \
+ && echo "[program:xrdp]\ncommand=/usr/sbin/xrdp --nodaemon\n" >> /etc/supervisor/conf.d/supervisord.conf \
+ && echo "[program:xrdp-sesman]\ncommand=/usr/sbin/xrdp-sesman -n\n" >> /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]
+
