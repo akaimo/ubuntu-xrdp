@@ -32,10 +32,17 @@ export XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg'\
  && chown ubuntu:ubuntu /home/ubuntu/.xsessionrc
 
 RUN set -x \
+ && : "setup dbus" \
+ && mkdir -p /var/run/dbus \
+ && chown messagebus:messagebus /var/run/dbus \
+ && dbus-uuidgen --ensure
+
+RUN set -x \
  && : "setup supervisord" \
  && echo "[supervisord]\nnodaemon=true\n" > /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:xrdp]\ncommand=/usr/sbin/xrdp --nodaemon\n" >> /etc/supervisor/conf.d/supervisord.conf \
- && echo "[program:xrdp-sesman]\ncommand=/usr/sbin/xrdp-sesman -n\n" >> /etc/supervisor/conf.d/supervisord.conf
+ && echo "[program:xrdp-sesman]\ncommand=/usr/sbin/xrdp-sesman -n\n" >> /etc/supervisor/conf.d/supervisord.conf \
+ && echo "[program:dbus-daemon]\ncommand=/usr/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]
 
