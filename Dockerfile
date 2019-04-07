@@ -3,13 +3,23 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
- && : "install xrdp" \
  && apt-get update \
+ && : "install desktop environment" \
  && apt-get install -y \
        ubuntu-mate-desktop \
+       network-manager \
+       network-manager-gnome \
        xrdp \
+       supervisor
+
+RUN set -x \
+ && apt-get install -y \
        vim \
-       supervisor \
+       curl \
+       wget \
+       git
+
+RUN set -x \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -42,7 +52,8 @@ RUN set -x \
  && echo "[supervisord]\nnodaemon=true\n" > /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:xrdp]\ncommand=/usr/sbin/xrdp --nodaemon\n" >> /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:xrdp-sesman]\ncommand=/usr/sbin/xrdp-sesman -n\n" >> /etc/supervisor/conf.d/supervisord.conf \
- && echo "[program:dbus-daemon]\ncommand=/usr/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf
+ && echo "[program:dbus-daemon]\ncommand=/usr/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf \
+ && echo "[program:network-manager]\ncommand=/usr/sbin/NetworkManager -n" >> /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]
 
