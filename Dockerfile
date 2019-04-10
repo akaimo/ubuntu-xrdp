@@ -55,5 +55,7 @@ RUN set -x \
  && echo "[program:dbus-daemon]\ncommand=/usr/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:network-manager]\ncommand=/usr/sbin/NetworkManager -n" >> /etc/supervisor/conf.d/supervisord.conf
 
+COPY org.freedesktop.NetworkManager.pkla /etc/polkit-1/localauthority/50-local.d/org.freedesktop.NetworkManager.pkla
+
 CMD ["/usr/bin/supervisord"]
 
