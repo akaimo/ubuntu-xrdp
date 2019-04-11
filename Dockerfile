@@ -58,7 +58,9 @@ RUN set -x \
 COPY org.freedesktop.NetworkManager.pkla /etc/polkit-1/localauthority/50-local.d/org.freedesktop.NetworkManager.pkla
 
 RUN set -x \
- && usermod -aG netdev ubuntu
+ && : "setup network-manager" \
+ && usermod -aG netdev ubuntu \
+ && touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
 
 CMD ["/usr/bin/supervisord"]
 
