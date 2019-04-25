@@ -6,7 +6,7 @@ RUN set -x \
  && apt-get update \
  && : "install desktop environment" \
  && apt-get install -y \
-       ubuntu-mate-desktop \
+       kubuntu-desktop \
        network-manager \
        network-manager-gnome \
        xrdp \
@@ -33,10 +33,10 @@ RUN set -x \
 RUN set -x \
  && : "setup xrdp" \
  && sed -e 's/^new_cursors=true/new_cursors=false/g' -i /etc/xrdp/xrdp.ini \
- && echo "mate-session" > /home/ubuntu/.xsession \
- && echo 'export XDG_SESSION_DESKTOP=mate\n\
-export XDG_DATA_DIRS=/usr/share/mate:/usr/share/mate:/usr/local/share:/usr/share:/var/lib/snapd/desktop\n\
-export XDG_CONFIG_DIRS=/etc/xdg/xdg-mate:/etc/xdg'\
+ && echo "startkde" > /home/ubuntu/.xsession \
+ && echo 'export XDG_CURRENT_DESKTOP=KDE\n\
+export XDG_DATA_DIRS=/usr/share/plasma:/usr/local/share:/usr/share:/var/lib/snapd/desktop\n\
+export XDG_CONFIG_DIRS=/etc/xdg/xdg-plasma:/etc/xdg:/usr/share/kubuntu-default-settings/kf5-settings'\
 >> /home/ubuntu/.xsessionrc \
  && chown ubuntu:ubuntu /home/ubuntu/.xsession \
  && chown ubuntu:ubuntu /home/ubuntu/.xsessionrc

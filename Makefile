@@ -2,7 +2,7 @@ build:
 	docker build -t ubuntu-xrdp:latest .
 
 run:
-	docker run --name ubuntu-xrdp --shm-size 2g -d -p 3389:3389 ubuntu-xrdp:latest
+	docker run --cap-add=ALL --name ubuntu-xrdp --shm-size 2g -d -p 3389:3389 ubuntu-xrdp:latest
 
 stop:
 	docker stop ubuntu-xrdp
