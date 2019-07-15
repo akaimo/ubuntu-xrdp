@@ -8,6 +8,7 @@ RUN set -x \
  && apt-get install -y \
        xubuntu-desktop \
        xrdp \
+       dbus \
        vim \
        supervisor \
  && apt-get clean \
@@ -31,11 +32,16 @@ export XDG_CONFIG_DIRS=/etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg'\
  && chown ubuntu:ubuntu /home/ubuntu/.xsessionrc
 
 RUN set -x \
+ && : "setup dbus" \
+ && mkdir /var/run/dbus \
+ && chown messagebus /var/run/dbus
+
+RUN set -x \
  && : "setup supervisord" \
  && echo "[supervisord]\nnodaemon=true\n" > /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:xrdp]\ncommand=/usr/sbin/xrdp --nodaemon\n" >> /etc/supervisor/conf.d/supervisord.conf \
  && echo "[program:xrdp-sesman]\ncommand=/usr/sbin/xrdp-sesman -n\n" >> /etc/supervisor/conf.d/supervisord.conf \
- && echo "[program:dbus-daemon]\ncommand=/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf
+ && echo "[program:dbus-daemon]\ncommand=/usr/bin/dbus-daemon --system --nofork\nuser=messagebus\n" >> /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]
 
